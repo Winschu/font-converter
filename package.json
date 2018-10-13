@@ -1,12 +1,24 @@
 {
   "name": "webfont-converter",
-  "version": "0.1.3",
+  "version": "0.2.1",
   "description": "Converts ttf files into formats that modern browsers need",
   "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "gitlab.white-it.net/Winschu/font-converter.git"
   },
+  "keywords": [
+    "ttf",
+    "eot",
+    "svg",
+    "woff",
+    "woff2",
+    "font",
+    "convert",
+    "converter",
+    "node",
+    "file"
+  ],
   "author": "Marcel Dominic Bandowski",
   "license": "MIT",
   "private": false,
