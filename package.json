@@ -1,0 +1,21 @@
+{
+  "name": "font-converter",
+  "version": "0.1.0",
+  "description": "Converts ttf files into formats that modern browsers need",
+  "main": "index.js",
+  "repository": "https://gitlab.white-it.net/Winschu/font-converter.git",
+  "author": "Marcel Dominic Bandowski",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "camelcase": "^5.0.0",
+    "ttf2eot": "^2.0.0",
+    "ttf2svg": "^1.2.0",
+    "ttf2woff": "^2.0.1",
+    "ttf2woff2": "^2.0.3"
+  },
+  "devDependencies": {
+    "generator-gitignore-io": "^0.1.0",
+    "node": "^10.12.0"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "generator-gitignore-io": {
+    "options": [
+      "node",
+      "webstorm",
+      "webstorm+all",
+      "webstorm+iml"
+    ]
+  }
+}
