@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "gitlab.white-it.net/Winschu/font-converter.git"
+    "url": "https://gitlab.white-it.net/Winschu/font-converter.git"
   },
   "keywords": [
     "ttf",
