@@ -6,19 +6,19 @@ This package can be used to convert a TTF file into a EOT, SVG, WOFF and WOFF2 f
 
 #### Install with yarn
 
-```
+```c
 yarn global add webfont-converter --dev
 ```
 
 #### Install with npm
 
-```
+```c
 npm install -g webfont-converter --dev
 ```
 
 ### usage example
 
-```
+```c
 webfont-converter ./fontpath/
 ```
 

@@ -17,21 +17,27 @@ function webfontConverter(path) {
 
     //clears all other files or old other font files from the directory
     clearFiles(fontPath).then(() => {
+        console.log(colors.magenta("All other files in ttf format have been removed"));
         //checks if there are still files that can be converted
-        if (fs.readdirSync(fontPath).length !== 0) {
-            //Iterates trough each remaining file
-            convertFiles(fontPath).then((err) => {
-                //converts remaining files to camelCase
-                renameFiles(fontPath).then(() => {
-                    if (err) {
-                        throw err;
-                    }
+
+        fs.readdir((fontPath), (err, files) => {
+            if (files.length !== 0) {
+                console.log(colors.magenta(`There are ${fs.readdirSync(fontPath).length} files left`));
+
+                //Iterates trough each remaining file
+                convertFiles(fontPath).then((err) => {
+                    //converts remaining files to camelCase
+                    renameFiles(fontPath).then(() => {
+                        if (err) {
+                            throw err;
+                        }
+                    });
                 });
-            });
-        }
-        else {
-            console.error("There are no files in this directory");
-        }
+            }
+            else {
+                console.error("There are no files in this directory");
+            }
+        });
     });
 }
 
@@ -91,24 +97,32 @@ async function renameFiles(fontPath) {
 async function convertFiles(fontPath) {
     fs.readdir(fontPath, (err, files) => {
         if (!err) {
+            console.log(colors.rainbow(`Start converting ${files.length} files`));
             files.forEach(file => {
-                const input = fs.readFileSync(fontPath + file);
+                console.log(`Found: ${file}${"".red}`);
 
-                const fontFilePath = fontPath + camelCase(file.replace(/\.[0-9a-z]+$/i, ""));
-
-                fs.writeFile(`${fontFilePath}.eot`, ttf2eot(input), (err) => writeFontFileCallback(err, `${fontFilePath}.eot`));
-                fs.writeFile(`${fontFilePath}.svg`, ttf2svg(input), (err) => writeFontFileCallback(err, `${fontFilePath}.svg`));
-                fs.writeFile(`${fontFilePath}.woff`, ttf2woff(input), (err) => writeFontFileCallback(err, `${fontFilePath}.woff`));
-                fs.writeFile(`${fontFilePath}.woff2`, ttf2woff2(input), (err) => writeFontFileCallback(err, `${fontFilePath}.woff2`));
-
-                function writeFontFileCallback(err, file) {
+                fs.readFile((fontPath + file), (err, input) => {
                     if (!err) {
-                        console.log(colors.green(`Created: ${file}`));
+                        const fontFilePath = fontPath + camelCase(file.replace(/\.[0-9a-z]+$/i, ""));
+
+                        fs.writeFile(`${fontFilePath}.eot`, ttf2eot(input), (err) => writeFontFileCallback(err, `${fontFilePath}.eot`));
+                        fs.writeFile(`${fontFilePath}.svg`, ttf2svg(input), (err) => writeFontFileCallback(err, `${fontFilePath}.svg`));
+                        fs.writeFile(`${fontFilePath}.woff`, ttf2woff(input), (err) => writeFontFileCallback(err, `${fontFilePath}.woff`));
+                        fs.writeFile(`${fontFilePath}.woff2`, ttf2woff2(input), (err) => writeFontFileCallback(err, `${fontFilePath}.woff2`));
+
+                        function writeFontFileCallback(err, file) {
+                            if (!err) {
+                                console.log(colors.green(`Created: ${file}`));
+                            }
+                            else {
+                                throw err;
+                            }
+                        }
                     }
                     else {
                         throw err;
                     }
-                }
+                });
             });
         }
         else {
