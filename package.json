@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://gitlab.white-it.net/Winschu/font-converter.git"
   },
+  "bugs": {
+    "url": "https://gitlab.white-it.net/Winschu/font-converter/issues"
+  },
   "keywords": [
     "ttf",
     "eot",
@@ -19,8 +22,16 @@
     "node",
     "file"
   ],
-  "author": "Marcel Dominic Bandowski",
-  "license": "MIT",
+  "author": {
+    "name": "Marcel Dominic Bandowski",
+    "email": "admin@playcollect.net"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
   "private": false,
   "bin": {
     "webfont-converter": "./bin/webfont-converter.js"
@@ -29,6 +40,7 @@
     "camelcase": "^5.0.0",
     "cli-color": "^1.3.0",
     "colors": "^1.3.2",
+    "iscamelcase": "^0.5.3",
     "super-trailing-slash": "^1.0.2",
     "ttf2eot": "^2.0.0",
     "ttf2svg": "^1.2.0",
@@ -37,7 +49,6 @@
   },
   "devDependencies": {
     "generator-gitignore-io": "^0.1.0",
-    "iscamelcase": "^0.5.3",
     "node": "^10.12.0"
   },
   "files": [
