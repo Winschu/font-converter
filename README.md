@@ -26,6 +26,7 @@ Note: currently the trailing slash is needed
 
 # TODO
 
-- [ ] already existing files don't have to be removed manually
-- [ ] adding check on missing trailing slash
 - [ ] option to only convert a single file and not the whole directory
+- [ ] creating css code output of converted files
+- [x] already existing files don't have to be removed manually
+- [x] adding check on missing trailing slash
