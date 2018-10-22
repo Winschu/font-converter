@@ -22,8 +22,6 @@ npm install -g webfont-converter --dev
 webfont-converter ./fontpath/
 ```
 
-Note: currently the trailing slash is needed
-
 # TODO
 
 - [ ] option to only convert a single file and not the whole directory
