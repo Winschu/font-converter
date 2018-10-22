@@ -4,11 +4,14 @@ const colors = require("colors");
 const camelCase = require("camelcase");
 const isCamelCase = require("iscamelcase");
 const slash = require('super-trailing-slash');
+const fileExtension = require('file-extension');
 
 const ttf2eot = require('ttf2eot');
 const ttf2svg = require('ttf2svg');
 const ttf2woff = require('ttf2woff');
 const ttf2woff2 = require('ttf2woff2');
+
+let originFontFileFormat = ".ttf";
 
 function webfontConverter(path) {
 
@@ -17,7 +20,7 @@ function webfontConverter(path) {
 
     //clears all other files or old other font files from the directory
     clearFiles(fontPath).then(() => {
-        console.log(colors.magenta("All other files in ttf format have been removed"));
+        console.log(colors.magenta("All other files than these in ttf format have been removed"));
         //checks if there are still files that can be converted
 
         fs.readdir((fontPath), (err, files) => {
@@ -35,7 +38,7 @@ function webfontConverter(path) {
                 });
             }
             else {
-                console.error("There are no files in this directory");
+                console.error(colors.red("There are no files in this directory"));
             }
         });
     });
@@ -44,38 +47,19 @@ function webfontConverter(path) {
 async function clearFiles(fontPath) {
     //clears all other files or old other font files from the directory
     fs.readdir(fontPath, (err, files) => {
-        if (!err) {
-            files.forEach(file => {
-                if (file.includes((".otf"))) {
-                    throw new Error(colors.red("This converter can only convert the TTF file format"));
-                }
-                if (!file.includes(".ttf")) {
-                    fs.unlink(fontPath + file, (err) => {
-                        if (!err) {
-                            console.warn(colors.yellow(`${file} removed from chosen directory`));
-                        }
-                        else {
-                            throw err;
-                        }
-                    });
+        if (!err) files.forEach(file => {
+            if (fileExtension(file) === "otf") {
+                throw new Error(colors.red("This converter can only convert the TTF file format"));
+            }
+            if (fileExtension(file) !== "ttf") fs.unlink(fontPath + file, (err) => {
+                if (!err) {
+                    console.warn(colors.yellow(`${file} removed from chosen directory`));
                 }
                 else {
-                    if (file.includes(" ")) {
-                        console.log(file + " has whitespaces");
-                        const oldPath = fontPath + file;
-                        const newPath = `${fontPath + camelCase(file.replace(/\.[0-9a-z]+$/i, ""))}.ttf`;
-                        fs.rename(oldPath, newPath, (err) => {
-                            if (!err) {
-                                console.log(colors.trap(`Renamed ${oldPath} into ${newPath}`));
-                            }
-                            else {
-                                throw err;
-                            }
-                        });
-                    }
+                    throw err;
                 }
             });
-        }
+        });
         else {
             throw err;
         }
@@ -84,13 +68,11 @@ async function clearFiles(fontPath) {
 
 async function renameFiles(fontPath) {
     fs.readdir(fontPath, (err, files) => {
-        if (!err) {
-            files.forEach(file => {
-                if (!isCamelCase.checkFile(fontPath + file)) {
-                    fs.renameSync(fontPath + file, fontPath + camelCase(file.replace(".ttf", "")) + ".ttf");
-                }
-            });
-        }
+        if (!err) files.forEach(file => {
+            if (!isCamelCase.checkFile(fontPath + file)) {
+                fs.renameSync(fontPath + file, fontPath + camelCase(file.replace(/\.[0-9a-z]+$/i, "")) + ".ttf");
+            }
+        });
     });
 }
 
@@ -99,7 +81,7 @@ async function convertFiles(fontPath) {
         if (!err) {
             console.log(colors.rainbow(`Start converting ${files.length} files`));
             files.forEach(file => {
-                console.log(`Found: ${file}${"".red}`);
+                console.log(colors.blue(`Found: ${file}`));
 
                 fs.readFile((fontPath + file), (err, input) => {
                     if (!err) {
