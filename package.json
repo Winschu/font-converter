@@ -1,6 +1,6 @@
 {
   "name": "webfont-converter",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Converts ttf files into formats that modern browsers need",
   "main": "src/index.js",
   "repository": {
