@@ -11,8 +11,6 @@ const ttf2svg = require('ttf2svg');
 const ttf2woff = require('ttf2woff');
 const ttf2woff2 = require('ttf2woff2');
 
-let originFontFileFormat = ".ttf";
-
 function webfontConverter(path) {
 
     //appends trailing slash to path if needed
