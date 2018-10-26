@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2018",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/typings"
+    ],
+    "paths": {
+      "file-extension": [
+        "./src/typings/file-extension/index.d.ts"
+      ],
+      "ttf2eot": [
+        "./src/typings/ttf2eot/index.d.ts"
+      ],
+      "ttf2svg": [
+        "./src/typings/ttf2svg/index.d.ts"
+      ],
+      "ttf2woff": [
+        "./src/typings/ttf2woff/index.d.ts"
+      ],
+      "ttf2woff2": [
+        "./src/typings/ttf2woff2/index.d.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

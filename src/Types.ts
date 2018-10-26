@@ -1,0 +1,1 @@
+export type FontFormat = "ttf" | "otf" | "eot" | "svg" | "woff" | "woff2";
