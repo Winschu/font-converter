@@ -1,8 +1,8 @@
 {
   "name": "webfont-converter",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Converts ttf files into formats that modern browsers need",
-  "main": "src/index-backup.js",
+  "main": ".dist/src/index.js",
   "repository": {
     "type": "git",
     "url": "https://gitlab.white-it.net/Winschu/font-converter.git"
@@ -20,7 +20,8 @@
     "convert",
     "converter",
     "node",
-    "file"
+    "file",
+    "async"
   ],
   "author": {
     "name": "Marcel Dominic Bandowski",
@@ -34,7 +35,7 @@
   ],
   "private": false,
   "bin": {
-    "webfont-converter": "./bin/webfont-converter.js"
+    "webfont-converter": "./dist/bin/webfont-converter.js"
   },
   "dependencies": {
     "camelcase": "^5.0.0",
@@ -52,13 +53,14 @@
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
     "@types/node": "^10.12.0",
+    "fs-extra": "^7.0.0",
     "generator-gitignore-io": "^0.1.0",
     "microbuffer": "^1.0.0",
     "typescript": "^3.1.3"
   },
   "files": [
-    "bin/webfont-converter.js",
-    "src/index-backup.js",
+    "./dist/bin/webfont-converter.js",
+    "./dist/src/index.js",
     "./README.md"
   ]
 }
