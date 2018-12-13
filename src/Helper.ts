@@ -10,6 +10,10 @@ export function consoleError(text: string): void {
     console.error(redColor(text));
 }
 
+export function consoleErrorCode(err: NodeJS.ErrnoException) {
+    consoleError(`An error happened: ${err.code}`);
+}
+
 export function consoleWarning(text: string): void {
     console.warn(yellowColor(text));
 }

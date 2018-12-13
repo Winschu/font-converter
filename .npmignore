@@ -1,9 +1,6 @@
 .idea
-bin
 fonts
 node_modules
-src
-
 .yo-rc.json
 tsconfig.json
 yarn.lock

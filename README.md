@@ -19,7 +19,13 @@ npm install -g webfont-converter --dev
 ### usage example
 
 ```c
-webfont-converter ./fontpath/
+webfont-converter --path=./fontpath
+```
+
+or
+
+```c
+webfont-converter --p=./fontpath
 ```
 
 # TODO
