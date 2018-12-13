@@ -27,6 +27,22 @@
       ]
     }
   },
+  "typedocOptions": {
+    "name": "Font Converter",
+    "mode": "modules",
+    "out": "doc",
+    "theme": "default",
+    "ignoreCompilerErrors": "true",
+    "experimentalDecorators": "true",
+    "emitDecoratorMetadata": "true",
+    "target": "ES2018",
+    "moduleResolution": "node",
+    "preserveConstEnums": "true",
+    "stripInternal": "true",
+    "suppressExcessPropertyErrors": "true",
+    "suppressImplicitAnyIndexErrors": "true",
+    "module": "commonjs"
+  },
   "exclude": [
     "node_modules"
   ]

@@ -4,7 +4,8 @@
   "description": "Converts ttf files into formats that modern browsers need",
   "main": "./dist/src/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "gitignore": "yo gitignore-io"
   },
   "repository": {
     "type": "git",
