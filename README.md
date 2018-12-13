@@ -1,6 +1,6 @@
 # webfont-converter
 
-This package can be used to convert a TTF file into a EOT, SVG, WOFF and WOFF2 file at once
+This package can be used to convert a TTF file into a WOFF and WOFF2 file at once
 
 # usage
 

@@ -2,6 +2,8 @@
 fonts
 node_modules
 .yo-rc.json
+.gitignore
+clean.js
 tsconfig.json
 yarn.lock
 yarn-error.log
