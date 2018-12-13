@@ -2,6 +2,7 @@
   "generator-gitignore-io": {
     "options": [
       "node",
+      "web",
       "webstorm",
       "webstorm+all",
       "webstorm+iml"

@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/node,webstorm,webstorm+all,webstorm+iml
-# Edit at https://www.gitignore.io/?templates=node,webstorm,webstorm+all,webstorm+iml
+# Created by https://www.gitignore.io/api/node,web,webstorm,webstorm+all,webstorm+iml
+# Edit at https://www.gitignore.io/?templates=node,web,webstorm,webstorm+all,webstorm+iml
 
 ### Node ###
 # Logs
@@ -82,6 +82,19 @@ typings/
 
 #DynamoDB Local files
 .dynamodb/
+
+### Web ###
+*.asp
+*.cer
+*.csr
+*.css
+*.htm
+*.html
+*.js
+*.jsp
+*.php
+*.rss
+*.xhtml
 
 ### WebStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
@@ -259,4 +272,4 @@ modules.xml
 # Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
 
 
-# End of https://www.gitignore.io/api/node,webstorm,webstorm+all,webstorm+iml
+# End of https://www.gitignore.io/api/node,web,webstorm,webstorm+all,webstorm+iml
