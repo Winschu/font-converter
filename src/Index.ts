@@ -34,8 +34,7 @@ export class WebfontConverter {
             }).catch((err: NodeJS.ErrnoException): void => {
                 throw err;
             });
-        }
-        else {
+        } else {
             //TODO: functions for single files
         }
     }
@@ -94,16 +93,14 @@ export class WebfontConverter {
                                 if (!err) {
                                     consoleSuccess(`Renamed ${oldPath} to ${newPath}`);
                                     return true;
-                                }
-                                else {
+                                } else {
                                     throw err;
                                 }
                             });
                         }
                     });
                     return true;
-                }
-                else {
+                } else {
                     consoleError(`Error while reading from directory: ${err.code}`);
                 }
             });
@@ -121,39 +118,20 @@ export class WebfontConverter {
                         readFile((path + file), (err: NodeJS.ErrnoException, input: Buffer): void => {
                             if (!err) {
                                 const completePath: string = path + camelCase(file.replace(/\.[0-9a-z]+$/i, ""));
-                                this.createFile(completePath, ttf2eot(input), "eot").then((success: boolean): void => {
+                                this.createFile(completePath, ttf2woff(input), "woff").then((success: boolean): void => {
                                     if (success) {
-                                        this.createFile(completePath, ttf2svg(input), "svg").then((success: boolean): void => {
+                                        this.createFile(completePath, ttf2woff2(input), "woff2").then((success: boolean): void => {
                                             if (success) {
-                                                this.createFile(completePath, ttf2woff(input), "woff").then((success: boolean): void => {
-                                                    if (success) {
-                                                        this.createFile(completePath, ttf2woff2(input), "woff2").then((success: boolean): void => {
-                                                            if (success) {
-                                                                consoleInfo(`Converting of ${completePath} started!`);
-                                                            } else {
-                                                                consoleError("Converting was not successful!");
-                                                            }
-                                                        }).catch((err: NodeJS.ErrnoException): void => {
-                                                            consoleErrorCode(err);
-                                                        });
-                                                    } else {
-                                                        consoleError("Converting was not successful!");
-                                                    }
-                                                }).catch((err: NodeJS.ErrnoException): void => {
-                                                    consoleErrorCode(err);
-                                                });
+                                                consoleInfo(`Converting of ${completePath} started!`);
                                             } else {
                                                 consoleError("Converting was not successful!");
                                             }
                                         }).catch((err: NodeJS.ErrnoException): void => {
                                             consoleErrorCode(err);
                                         });
-                                    }
-                                    else {
+                                    } else {
                                         consoleError("Converting was not successful!");
                                     }
-                                }).catch((err): void => {
-                                    consoleErrorCode(err);
                                 });
                             } else {
                                 throw err;
