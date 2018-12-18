@@ -7,8 +7,6 @@ import {ByteBuffer} from "microbuffer";
 import {checkFile} from "iscamelcase";
 import {FontFormat} from "./Types";
 
-const ttf2eot = require("ttf2eot");
-const ttf2svg = require("ttf2svg");
 const ttf2woff = require("ttf2woff");
 const ttf2woff2 = require("ttf2woff2");
 
