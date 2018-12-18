@@ -1,6 +1,6 @@
 {
   "name": "webfont-converter",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Converts ttf files into formats that modern browsers need",
   "main": "./dist/src/index.js",
   "scripts": {
