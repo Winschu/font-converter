@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-const argv = require('yargs').parse();
-
+import {parse} from "yargs";
 import {WebfontConverter} from "../src";
+
+const argv = parse();
 
 if (argv.p) {
     new WebfontConverter(argv.p);
