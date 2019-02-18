@@ -4,10 +4,14 @@ import {WebfontConverter} from "../src";
 
 const argv = parse();
 
-if (argv.p) {
-    new WebfontConverter(argv.p);
+if (argv.p && argv.p.length > 0) {
+    if(argv.p.toString().length > 0) {
+        new WebfontConverter(argv.p.toString());
+    }
+    else {
+        console.error("Wrong path!");
+    }
 }
-
-if (argv.path) {
-    new WebfontConverter(argv.path);
+else {
+    console.log("Path has to be a string!");
 }
