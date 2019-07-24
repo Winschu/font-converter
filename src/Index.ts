@@ -1,11 +1,21 @@
-import {readdir, readFile, rename, writeFile} from "fs";
+import {readdir, readdirSync, readFile, rename, writeFile} from "fs";
 import {remove} from "fs-extra";
 
-import {consoleError, consoleErrorCode, consoleInfo, consoleSpecial, consoleSuccess, consoleWarning} from "./Helper";
+import {
+    checkOnError,
+    consoleError,
+    consoleErrorCode,
+    consoleInfo,
+    consoleSpecial,
+    consoleSuccess,
+    consoleWarning
+} from "./Helper";
 
 import {ByteBuffer} from "microbuffer";
 import {checkFile} from "iscamelcase";
 import {FontFormat} from "./Types";
+import * as path from "path";
+import {swapFileExtension} from "./Handler";
 
 const ttf2woff = require("ttf2woff");
 const ttf2woff2 = require("ttf2woff2");
@@ -18,6 +28,7 @@ const camelCase = require("camelcase");
 export class WebfontConverter {
     constructor(path: string, file?: string) {
         path = slash.add(path);
+        this.checkFiles(path);
         if (!file) {
             this.clearFiles(path).then((success: boolean): void => {
                 if (success) {
@@ -37,70 +48,69 @@ export class WebfontConverter {
         }
     }
 
+    private checkFiles(filePath: string, file?: string): void {
+        readdirSync(filePath).forEach((fileName: string): void => {
+            if (path.extname(path.basename(fileName)) !== ".ttf") {
+                console.error(`${fileName} has no ttf extension`);
+            }
+        });
+    }
+
     private async clearFiles(path: string, file?: string): Promise<boolean> {
         return await readDirectory(path);
 
         async function readDirectory(path): Promise<boolean> {
             readdir(path, (err, files): boolean => {
-                if (!err) {
-                    files.forEach(dirFile => {
-                        if (fileExtension(dirFile) !== "otf") {
-                            if (fileExtension(dirFile) !== "ttf") {
-                                if (!file) {
-                                    remove(path + dirFile, (err: NodeJS.ErrnoException) => {
-                                        if (!err) {
-                                            consoleWarning(`Removed ${path + dirFile}`);
-                                        } else {
-                                            consoleError(`An error happened: ${err.code}`);
-                                        }
-                                    });
-                                } else {
-                                    //TODO: Unlink single file
-                                }
+                checkOnError(err);
+                files.forEach(dirFile => {
+                    if (fileExtension(dirFile) !== "otf") {
+                        if (fileExtension(dirFile) !== "ttf") {
+                            if (!file) {
+                                remove(path + dirFile, (err: NodeJS.ErrnoException) => {
+                                    checkOnError(err);
+                                    consoleWarning(`Removed ${path + dirFile}`);
+                                });
+                            } else {
+                                //TODO: Unlink single file
                             }
-                        } else {
-                            consoleError("This converter can only convert the TTF file format");
-                            throw new Error("Process aborted!");
                         }
-                    });
-                    return true;
-                } else {
-                    consoleError(`An error happened: ${err.code}`);
-                    throw err;
-                }
+                    } else {
+                        consoleError("This converter can only convert the TTF file format");
+                    }
+                });
+                return true;
             });
             return true;
         }
     }
 
-    private async renameFiles(path: string, file?: string): Promise<boolean> {
+    private async renameFiles(filePath: string, file?: string): Promise<boolean> {
         if (!file) {
-            await renamingFiles(path);
+            await renamingFiles(filePath);
         } else {
             return false;
         }
 
-        async function renamingFiles(path): Promise<boolean> {
-            readdir(path, (err: NodeJS.ErrnoException, files: string[]): boolean => {
+        async function renamingFiles(filePath): Promise<boolean> {
+            readdir(filePath, (err: NodeJS.ErrnoException, files: string[]): boolean => {
                 if (!err) {
-                    files.forEach(file => {
-                        if (!checkFile(path + file)) {
-                            const oldPath: string = path + file;
-                            const newPath: string = path + camelCase(file.replace(/\.[0-9a-z]+$/i, "")) + ".ttf";
+                    files.forEach((fileName: string) => {
+                        if (!checkFile(fileName)) {
+                            const oldPath: string = filePath + fileName;
+                            const newPath: string = filePath + swapFileExtension(fileName, "ttf");
                             rename(oldPath, newPath, (err: NodeJS.ErrnoException): boolean => {
                                 if (!err) {
                                     consoleSuccess(`Renamed ${oldPath} to ${newPath}`);
                                     return true;
                                 } else {
-                                    throw err;
+                                    consoleErrorCode(err);
                                 }
                             });
                         }
                     });
                     return true;
-                } else {
-                    consoleError(`Error while reading from directory: ${err.code}`);
                 }
+                consoleError(`Error while reading from directory: ${err.code}`);
             });
             return true;
         }
